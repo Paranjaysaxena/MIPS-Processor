@@ -3,12 +3,12 @@ module regfile (
 	//
 	input  [ 4:0] addr1,
 	input  [ 4:0] addr2,
-	output [31:0] data1,
-	output [31:0] data2,
-	//
-	input         rw   ,
+	input  reg_write   ,
 	input  [ 4:0] addr3,
-	input  [31:0] wdata
+	input  [31:0] wdata,
+	//
+	output [31:0] data1,
+	output [31:0] data2
 );
 
 	reg [31:0] regmem[31:0];
@@ -32,9 +32,14 @@ module regfile (
 	end
 
 	always@ (posedge clk) begin
-		if(1'b1 == rw) begin
+		if(1'b1 == reg_write) begin
 			regmem[addr3] = wdata;
 		end
 	end
 
+	always @(addr1 or addr2 or reg_write or addr3 or wdata)
+	begin
+		$display("Change in reg file input: addr1:%d, addr2:%d, addr3:%d, reg_write:%d, wdata:%d", addr1, addr2, addr3, reg_write, wdata);
+		#1 $display("Output of the register file: data1:%d, data2:%d", data1, data2);
+	end
 endmodule

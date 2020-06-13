@@ -34,12 +34,21 @@ module datapath (
 	assign pc_next = jump ? pc_jump : (pc_src ? pc_branch : pc_plus_4);
 
 	reg [31:0] pc;
-	always @(posedge clk) begin : proc_pc
-		if(~rst) begin
+	always @(posedge clk)
+	begin : proc_pc
+		if(~rst)
+		begin
 			pc = pc_next;
-		end else begin
+		end
+		else
+		begin
 			pc = 32'h00000000;
 		end
+	end
+
+	always @pc
+	begin
+		$display("PC Changed to %d", pc);
 	end
 
 	wire [5:0] rt;
@@ -59,7 +68,7 @@ module datapath (
 
 	regfile regfile_inst (
 		.clk  (clk         ),
-		.rw   (reg_write   ),
+		.reg_write   (reg_write   ),
 		.addr1(instr[25:21]),
 		.addr2(instr[20:16]),
 		.addr3(write_reg   ),
@@ -71,6 +80,7 @@ module datapath (
 	wire [31:0] src_a;
 	wire [31:0] src_b;
 	wire c_out;
+	wire [31:0] alu_out;
 
 	assign src_a = reg_data1;
 	assign src_b = alu_src ? imm_ext : reg_data2;
@@ -83,7 +93,6 @@ module datapath (
 		.c_out(c_out     ),
 		.y_out(alu_out   )
 	);
-	wire [31:0] alu_out;
 	assign alu_result = alu_out;
 
 	wire [31:0] imm_ext;

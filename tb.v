@@ -11,7 +11,7 @@ module tb;
 
     //clk, reset, pc, instr, aluout, writedata, memwrite, and readdata
 
-    top uut (.clk(clock), .reset(reset));
+    main main_circuit (.clk(clock), .reset(reset));
 
     // generate clock
     always begin
@@ -20,7 +20,7 @@ module tb;
 
     initial begin
         $dumpfile("dump.vcd");
-        $dumpvars(0, uut);
+        $dumpvars(0, main_circuit);
     end
 
     initial begin

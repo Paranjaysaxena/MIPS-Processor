@@ -27,5 +27,10 @@ module alu (
     assign zero = ~| y_out;
 
     assign y_out = 2'b00 == f_in[1:0] ? fx00 : (2'b01 == f_in[1:0] ? fx01 : (2'b10 == f_in[1:0] ? fx10 : fx11 ));
+    always @(zero or c_out or y_out)
+    begin
+        $display("Change in alu input: a_in:%d, b_in: %d, f_in:%d", a_in, b_in, f_in);
+        #2 $display("Result of alu: zero:%d, c_out:%d, y_out:%d", zero, c_out, y_out);
+    end
 
 endmodule

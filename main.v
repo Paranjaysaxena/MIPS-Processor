@@ -1,4 +1,4 @@
-module top (
+module main (
 	input clk, // clock
 	input reset  // synchronous reset active high
 );
@@ -11,7 +11,7 @@ module top (
 	wire [31:0] dmem_wdata;
 
 	imem imem_inst (
-		.addr(imem_addr[7:2]),
+		.addr(imem_addr[7:0]),
 		.data(imem_data     )
 	);
 

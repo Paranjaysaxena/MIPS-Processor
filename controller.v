@@ -27,5 +27,11 @@ module controller (
 		.instr     (instr     ),
 		.alucontrol(alucontrol)
 	);
+	
+	always @(instr)
+    begin
+        $display("New instruction in controller: instr:%b", instr);
+        #2 $display("Output of the new instruction in controller: branch:%d, jump:%d, mem_to_reg:%d, mem_write:%d, reg_dst:%d, reg_write:%d, alucontrol:%b, alu_src:%d", branch, jump, mem_to_reg, mem_write, reg_dst, reg_write, alucontrol, alu_src);
+    end
 
 endmodule
