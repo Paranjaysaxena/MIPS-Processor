@@ -29,7 +29,7 @@ module main (
 	dmem dmem_inst (
 		.clk  (clk       ),
 		.we   (dmem_we   ),
-		.addr (dmem_addr ),
+		.addr ({2'b0,dmem_addr[31:2]}),
 		.wdata(dmem_wdata),
 		.rdata(dmem_rdata)
 	);

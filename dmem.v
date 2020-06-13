@@ -29,14 +29,13 @@ module dmem (
 
 	always @(negedge clk) begin
 		if(1'b1 == we) begin
-			$display("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx %d", addr);
 			memdata[addr] = wdata;
 		end
 	end
 
 	initial
 	begin
-		$monitor("Data: n:%d, sum:%d, a[0]:%d, a[1]:%d, a[2]:%d, a[3]:%d, a[4]:%d",
+		$monitor("Change in data memory: n:%d, sum:%d, a[0]:%d, a[1]:%d, a[2]:%d, a[3]:%d, a[4]:%d",
 		memdata[0], memdata[1], memdata[2], memdata[3],
 		memdata[4], memdata[5], memdata[6]);
 	end

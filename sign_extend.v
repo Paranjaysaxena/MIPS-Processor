@@ -9,10 +9,4 @@ module sign_extend (
 		odata = {{16{idata[15]}}, idata};
 	end
 
-	always @(idata)
-	begin
-		$display("Sign extend input: %b", idata);
-		#1 $display("Sign extend output: %b", odata);
-	end
-
 endmodule

@@ -53,12 +53,10 @@ module regfile (
 		#1 $display("Output of the register file: data1:%d, data2:%d", data1, data2);
 	end
 
-	integer i;
 	always @(posedge clk)
 	begin
-		for (i = 0; i < 11; i = i + 1)
-		begin
-			$display("reg %d: %d",i, regmem[i]);
-		end
+		$display("\n\n-----------------------------------REGISTERS------------------------------------");
+		$display("r1:%d, r2:%d, r3:%d, r4:%d, r5:%d, r6:%d, r10:%d",regmem[1], regmem[2], regmem[3], regmem[4], regmem[5], regmem[6], regmem[10]);
+		$display("\n\n");
 	end
 endmodule

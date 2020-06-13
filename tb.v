@@ -24,6 +24,8 @@ module tb;
     end
 
     initial begin
+        $display("Contents of registers:");
+        $display("r6-ith element,r1 index, r2 sum, r3 n (gp), r5 address of ith element, r10 address of sum (gp +4)\n\n");
         // initialize all variables
         clock = 0; reset = 1;
         // wait for first negative edge before de-asserting reset
