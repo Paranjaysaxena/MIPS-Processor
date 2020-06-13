@@ -1,33 +1,37 @@
 # mips_cpu
 
-A implementation of a 32-bit single cycle MIPS processor in Verilog. This version of the MIPS single-cycle processor can execute the following instructions: add, sub, and, or, slt, lw, sw, beq, addi, and j.
+A implementation of a 32-bit single cycle MIPS processor in Verilog. This version of the MIPS single-cycle processor can execute the following instructions: add, sub, and, or, slt, lw, sw, beq, addi, and j and syscall.
 
 To tun the test bench:
 
 ```
 $ iverilog *.v
-$ ./a.out; gtkwave dump.vcd test.gtkw
+$ ./a.out; gtkwave dump.vcd
 ```
 
 Each of the memories is a 64-word × 32-bit array. The instruction memory contains some initial values representing a test program.
 
 ## Test MIPS instructions
 ```
-main:	addi $2, $0, 5		# 20020005
-		addi $7, $0, 3		# 20070003
-		addi $3, $0, 0xc	# 2003000c
-		or $4, $7, $2		# 00e22025
-		and $5, $3, $4		# 00642824
-		add $5, $5, $4		# 00a42820
-		beq $5, $7, end		# 10a70008
-		slt $6, $3, $4		# 0064302a
-		beq $6, $0, around	# 10c00001
-		addi $5, $0, 10		# 2005000a
-around:	slt $6, $7, $2		# 00e2302a
-		add $7, $6, $5		# 00c53820
-		sub $7, $7, $2		# 00e23822
-		j end				# 0800000f
-		lw $7, 0($0)		# 8c070000
-end:	sw $7, 71($2)		# ac470047
+main:
+	addi r1 r0 0
+	addi r2 r0 0
+	addi r4 $gp 0
+	lw r3 r4
+	addi r5 $gp 8
+	addi r10 $gp 4
+
+start:
+	beq r1 r3 end
+	lw r6 r5
+	add r2 r2 r6
+	addi r5 r5 4
+	addi r1 r1 1
+	ja start
+
+end:
+	sw r10 r6
+	addi r4 r0 10 // (argument for syscall)
+	syscall
 ```
 

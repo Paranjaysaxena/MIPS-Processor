@@ -19,7 +19,7 @@ module mips (
     wire       reg_dst   ;
     wire       reg_write ;
 
-    controller controller_inst (
+    control_unit controller_inst (
         .instr     (imem_data ),
         .alucontrol(alucontrol),
         .alu_src   (alu_src   ),
