@@ -18,7 +18,12 @@ module regfile (
 	always @(addr1 or regmem[addr1]) begin
 		if (0 == addr1) begin
 			data1 = 0;
-		end else begin
+		end
+		else if(24 ==addr1)
+		begin
+			data1=0;
+		end
+		else begin
 			data1 = regmem[addr1];
 		end
 	end
@@ -26,12 +31,17 @@ module regfile (
 	always @(addr2 or regmem[addr2]) begin
 		if (0 == addr2) begin
 			data2 = 0;
-		end else begin
+		end
+		else if(24 ==addr2)
+		begin
+			data2=0;
+		end
+		else begin
 			data2 = regmem[addr2];
 		end
 	end
 
-	always@ (posedge clk) begin
+	always@ (negedge clk) begin
 		if(1'b1 == reg_write) begin
 			regmem[addr3] = wdata;
 		end
@@ -41,5 +51,14 @@ module regfile (
 	begin
 		$display("Change in reg file input: addr1:%d, addr2:%d, addr3:%d, reg_write:%d, wdata:%d", addr1, addr2, addr3, reg_write, wdata);
 		#1 $display("Output of the register file: data1:%d, data2:%d", data1, data2);
+	end
+
+	integer i;
+	always @(posedge clk)
+	begin
+		for (i = 0; i < 11; i = i + 1)
+		begin
+			$display("reg %d: %d",i, regmem[i]);
+		end
 	end
 endmodule

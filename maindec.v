@@ -10,6 +10,8 @@ module maindec (
 	output        alu_src
 );
 
+	wire is_syscall;
+	assign is_syscall = ((opcode == 6'b001100));
 	wire [5:0] opcode;
 	assign opcode = instr[31:26];
 
@@ -36,5 +38,13 @@ module maindec (
 	assign reg_dst    = is_add | is_sub | is_and | is_or | is_slt;
 	assign reg_write  = is_add | is_sub | is_and | is_or | is_slt | is_addi | is_lw;
 	assign alu_src    = is_addi | is_lw | is_sw;
+
+	always @(opcode)
+	begin
+		if ( 6'b001100 == opcode)
+		begin
+			$finish;
+		end
+	end
 
 endmodule

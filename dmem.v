@@ -27,8 +27,9 @@ module dmem (
 		rdata = memdata[addr];
 	end
 
-	always @(posedge clk) begin
+	always @(negedge clk) begin
 		if(1'b1 == we) begin
+			$display("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx %d", addr);
 			memdata[addr] = wdata;
 		end
 	end

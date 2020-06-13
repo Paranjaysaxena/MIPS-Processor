@@ -1,5 +1,5 @@
 `resetall
-`timescale 1ns/10ps
+// `timescale 1ns/10ps
 
 `define CLKP 10 // clock period
 `define CLKPDIV2 5 // clock period divided by 2
@@ -28,8 +28,6 @@ module tb;
         clock = 0; reset = 1;
         // wait for first negative edge before de-asserting reset
         @(negedge clock) reset = 0;
-        #1000
-        $finish;
     end
 
 endmodule

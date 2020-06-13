@@ -6,7 +6,6 @@ module datapath (
 	input         branch    ,
 	input         jump      ,
 	input         mem_to_reg,
-	input         mem_write ,
 	input         reg_dst   ,
 	input         reg_write ,
 	// imem side
@@ -48,7 +47,7 @@ module datapath (
 
 	always @pc
 	begin
-		$display("PC Changed to %d", pc);
+		$display("PC Changed to %d , time:%t", pc, $time);
 	end
 
 	wire [5:0] rt;
